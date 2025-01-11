@@ -6,6 +6,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { siteLogoDark } from 'src/assets';
 import { login, logout } from 'src/redux/action';
 
+
 export const Header = () => {
   //-------------- State & Variables --------------//
   const dispatch = useDispatch();
@@ -18,8 +19,7 @@ export const Header = () => {
       key: '0',
       icon: <LayoutGrid strokeWidth={1.8} height={18} />,
       onClick: () => {
-        if (userSession.role?.role_name == 'USER') navigate('/dashboard');
-        if (userSession.role?.role_name == 'MANAGER') navigate('/manager-dashboard');
+        navigate('/dashboard');
       }
     },
 
@@ -36,25 +36,7 @@ export const Header = () => {
 
   //-------------- Other Methods --------------//
 
-  useEffect(() => {
-    if (userSession?.role) {
-      const isUserCheck = userSession.role.role_name === 'USER';
-      setIsUser(isUserCheck);
-    }
-  }, []);
-
-  const onManagerToggle = () => {
-    const role = { ...userSession.role };
-    if (isUser) {
-      role.role_name = 'MANAGER';
-    } else {
-      role.role_name = 'USER';
-    }
-    setIsUser(!isUser);
-    dispatch(login({ ...userSession, role: role, isManager: true }));
-    if (!isUser) navigate('/dashboard');
-    else navigate('/manager-dashboard');
-  };
+  
 
   return (
     <header className="flex justify-between items-center w-full">
@@ -62,20 +44,6 @@ export const Header = () => {
         <Image src={siteLogoDark} height={43} preview={false} />
       </Link>
       <div className="flex items-center justify-end">
-        {userSession.isManager && (
-          <>
-            <Typography className="text-lg font-semibold text-primary mr-3">
-              {userSession?.role?.role_name}
-            </Typography>
-            <Switch
-              value={isUser}
-              size="default"
-              onChange={onManagerToggle}
-              checkedChildren={<UserCheck2 size={20} />}
-              unCheckedChildren={<User size={20} />}
-            />
-          </>
-        )}
         <Dropdown
           className="p-3 z-[999]"
           overlayClassName="!bg-white rounded-lg !w-52 "

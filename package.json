@@ -12,6 +12,7 @@
     "format": "prettier --write ./src/* --config ./.prettierrc"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.5.0",
     "antd": "^5.20.3",
     "axios": "^1.7.5",
     "dayjs": "^1.11.13",

@@ -24,11 +24,11 @@ const Navigation = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" errorElement={ErrorBoundary}>
+          <Route path="/dashboard/" element={<Pages.Dashboard />} />
           <Route index element={<Pages.Login />} />
-          <Route path="/forget-password" element={<Pages.ForgetPassword />} />
+          {/* <Route path="/forget-password" element={<Pages.ForgetPassword />} /> */}
           {/* ALL RESTRICTED ROUTES */}
           <Route element={<RequireAuth />}>
-            <Route path="/dashboard/" element={<Pages.Dashboard />} />
             <Route path="*" element={<NotFound />} />
           </Route>
 
@@ -95,9 +95,7 @@ const RequireAuth = () => {
       </div>
     );
   else if (userSession == '') return <Navigate to="/" state={{ from: location }} />;
-  else if (!userSession?.force_password_change && location?.pathname != '/change-password')
-    return <Navigate to="/change-password" state={{ from: location }} />;
-  else if (userSession?.role?.role_name) {
+  else if (userSession) {
     return <Outlet />;
   } else return <Navigate to="/unauthorized" state={{ from: location }} />;
 };
