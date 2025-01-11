@@ -25,6 +25,7 @@ const Navigation = () => {
       <Routes>
         <Route path="/" errorElement={ErrorBoundary}>
           <Route path="/dashboard/" element={<Pages.Dashboard />} />
+          <Route path="/dashboard/create-quiz" element={<Pages.CreateQuiz />} />
           <Route index element={<Pages.Login />} />
           {/* <Route path="/forget-password" element={<Pages.ForgetPassword />} /> */}
           {/* ALL RESTRICTED ROUTES */}

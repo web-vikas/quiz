@@ -7,4 +7,5 @@
  * And export them from index so that it can be imported directly
  */
 export * from './Dashboard/Home';
+export * from './Dashboard/CreateQuiz';
 export * from './Login';
