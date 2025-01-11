@@ -1,0 +1,37 @@
+@import url('./global.css');
+@import url('./loader.css');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input[type='checkbox'] {
+  appearance: none;
+  -webkit-appearance: none;
+  height: 18px;
+  width: 18px;
+  border-radius: 5px;
+  border: 2px solid #ccc;
+  position: relative;
+  cursor: pointer;
+}
+
+input[type='checkbox']:checked {
+  background-color: #e27640;
+  border-color: #ee7539;
+}
+
+input[type='checkbox']:checked::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+input[type='checkbox']:hover {
+  border-color: #888;
+}
