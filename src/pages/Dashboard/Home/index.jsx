@@ -11,7 +11,7 @@ export const Dashboard = () => {
       <Card
         title="Quiz"
         extra={
-          <Button
+          <Button 
             type="primary"
             size="middle"
             onClick={() => {
@@ -44,7 +44,7 @@ export const Dashboard = () => {
         )}
       </Card>
       <AddQuizModal
-        isAddQuizModalVisible={isAddQuizModalVisible}
+        x={isAddQuizModalVisible}
         setIsAddQuizModalVisible={setIsAddQuizModalVisible}
       />
     </UserWrapper>

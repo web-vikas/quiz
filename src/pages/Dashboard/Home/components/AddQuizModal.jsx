@@ -1,6 +1,6 @@
 import { Button, Form, Input, Modal } from 'antd';
 
-const AddQuizModal = ({ isAddQuizModalVisible, setIsAddQuizModalVisible }) => {
+const AddQuizModal = ({ x, setIsAddQuizModalVisible }) => {
   const handelAddNewQuiz = (values) => {
     console.log('handelAddNewQu', values);
   };
@@ -8,7 +8,7 @@ const AddQuizModal = ({ isAddQuizModalVisible, setIsAddQuizModalVisible }) => {
   return (
     <Modal
       title="Add New Quiz"
-      open={isAddQuizModalVisible}
+      open={x}
       onCancel={() => {
         setIsAddQuizModalVisible(false);
       }}
