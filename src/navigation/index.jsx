@@ -24,11 +24,13 @@ const Navigation = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" errorElement={ErrorBoundary}>
-          <Route path="/dashboard/" element={<Pages.Dashboard />} />
-          <Route path="/dashboard/quiz" element={<Pages.CreateQuiz />} />
           <Route index element={<Pages.Login />} />
+          <Route path="/quiz/:quizId" element={<Pages.QuizPage />} />
+          <Route path="/result" element={<Pages.QuizResults />} />
           {/* <Route path="/forget-password" element={<Pages.ForgetPassword />} /> */}
           {/* ALL RESTRICTED ROUTES */}
+          <Route path="/dashboard/" element={<Pages.Dashboard />} />
+          <Route path="/dashboard/quiz" element={<Pages.CreateQuiz />} />
           <Route element={<RequireAuth />}>
             <Route path="*" element={<NotFound />} />
           </Route>

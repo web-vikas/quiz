@@ -9,3 +9,5 @@
 export * from './Dashboard/Home';
 export * from './Dashboard/CreateQuiz';
 export * from './Login';
+export * from './TakeQuiz';
+export * from './Result';
