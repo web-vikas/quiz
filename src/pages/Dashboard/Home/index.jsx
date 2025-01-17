@@ -1,17 +1,63 @@
-import { Button, Card, Empty } from 'antd';
-import React, { useState } from 'react';
+import { Button, Card, Empty, Form } from 'antd';
+import React, { useEffect, useState } from 'react';
 import { UserWrapper } from 'src/components';
 import AddQuizModal from './components/AddQuizModal';
+import { useErrorLog } from 'src/hooks';
+import { API } from 'src/services';
+import { useDispatch } from 'react-redux';
+import { loadingStart, loadingStop } from 'src/redux/action';
+import moment from 'moment';
+import { Link } from 'react-router-dom';
 
 export const Dashboard = () => {
+  const handelError = useErrorLog('pages/dashboard/home');
+  const [form] = Form.useForm();
+  const dispatch = useDispatch();
+
   const [quizzes, setQuizzes] = useState([]);
   const [isAddQuizModalVisible, setIsAddQuizModalVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    init();
+  }, []);
+
+  const createQuiz = async (values) => {
+    try {
+      setLoading(true);
+      const res = await API.CreateNewQuiz(values, 'Quiz Created Successfully', 'Creating Quiz...');
+      if (res) {
+        form.resetFields();
+        setIsAddQuizModalVisible(false);
+      }
+    } catch (error) {
+      handelError(error);
+    } finally {
+      setLoading(false);
+      init();
+    }
+  };
+
+  const init = async () => {
+    try {
+      dispatch(loadingStart());
+      const res = await API.GetAllQuizzes();
+      if (res) {
+        setQuizzes(res?.data);
+      }
+    } catch (error) {
+      handelError(error);
+    } finally {
+      dispatch(loadingStop());
+    }
+  };
+
   return (
     <UserWrapper>
       <Card
         title="Quiz"
         extra={
-          <Button 
+          <Button
             type="primary"
             size="middle"
             onClick={() => {
@@ -23,11 +69,14 @@ export const Dashboard = () => {
         }
       >
         {quizzes?.length > 0 ? (
-          quizzes.map((quiz) => (
-            <div key={quiz.id}>
-              <h3>{quiz.title}</h3>
-            </div>
-          ))
+          <div className="flex gap-2">
+            {quizzes.map((quiz) => (
+              <Link to="/dashboard/quiz" state={{ id: quiz._id }} key={quiz._id}>
+                <h3>{quiz.quiz_name}</h3>
+                <p>{moment(quiz.createdAt).format('l')}</p>
+              </Link>
+            ))}
+          </div>
         ) : (
           <div className="flex items-center justify-center flex-col gap-6">
             <Empty />
@@ -46,6 +95,9 @@ export const Dashboard = () => {
       <AddQuizModal
         x={isAddQuizModalVisible}
         setIsAddQuizModalVisible={setIsAddQuizModalVisible}
+        createQuiz={createQuiz}
+        form={form}
+        loading={loading}
       />
     </UserWrapper>
   );

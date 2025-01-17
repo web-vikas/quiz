@@ -37,7 +37,7 @@ export const Login = () => {
         'Loading ...'
       );
       if (response) {
-        dispatch(login(response));
+        dispatch(login(response?.data));
         navigate('/dashboard');
       }
     } catch (e) {

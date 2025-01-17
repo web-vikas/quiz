@@ -5,8 +5,10 @@
  * Import it in component as API.Login()
  */
 
-import { AuthApi} from './apis/auth';
+import { AuthApi } from './apis/auth';
+import { QuizApi } from './apis/quiz';
 
 export const API = {
-  ...AuthApi
+  ...AuthApi,
+  ...QuizApi
 };

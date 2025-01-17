@@ -1,10 +1,6 @@
 import { Button, Form, Input, Modal } from 'antd';
 
-const AddQuizModal = ({ x, setIsAddQuizModalVisible }) => {
-  const handelAddNewQuiz = (values) => {
-    console.log('handelAddNewQu', values);
-  };
-
+const AddQuizModal = ({ x, setIsAddQuizModalVisible, createQuiz, form, loading }) => {
   return (
     <Modal
       title="Add New Quiz"
@@ -15,9 +11,9 @@ const AddQuizModal = ({ x, setIsAddQuizModalVisible }) => {
       footer={null}
       centered
     >
-      <Form layout="vertical" onFinish={handelAddNewQuiz}>
+      <Form layout="vertical" form={form} onFinish={createQuiz}>
         <Form.Item
-          name="quiz_name"
+          name="quizName"
           label="Quiz Name"
           rules={[
             {
@@ -29,7 +25,7 @@ const AddQuizModal = ({ x, setIsAddQuizModalVisible }) => {
           <Input />
         </Form.Item>
         <Form.Item>
-          <Button htmlType="submit" type="primary">
+          <Button htmlType="submit" type="primary" loading={loading}>
             Add Quiz
           </Button>
         </Form.Item>

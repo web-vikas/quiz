@@ -59,7 +59,7 @@ export const Header = () => {
               shape="circle"
               className="font-semibold text-lg cursor-pointer border-2 border-primary"
             >
-              {userSession?.first_name?.charAt(0)}
+              {userSession?.name?.charAt(0)}
             </Avatar>
           </div>
         </Dropdown>

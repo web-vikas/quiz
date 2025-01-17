@@ -59,7 +59,7 @@ export const getToken = async () => {
     ? JSON.parse(localStorage.getItem('userSession'))
     : null;
 
-  let response = session?.access_token;
+  let response = session?.token;
 
   return response;
 };

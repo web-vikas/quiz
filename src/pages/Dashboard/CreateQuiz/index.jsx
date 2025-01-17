@@ -2,8 +2,10 @@ import { Button, Card, Space, Table, Tag } from 'antd';
 import React, { useState } from 'react';
 import { UserWrapper } from 'src/components';
 import AddQuestionModel from './components/AddQuestionModel';
+import { useLocation } from 'react-router-dom';
 
 export const CreateQuiz = () => {
+  const { state } = useLocation();
   const [isQuestionModelVisible, setQuestionModelVisible] = useState(false);
   const columns = [
     {
@@ -48,13 +50,13 @@ export const CreateQuiz = () => {
       render: (_, record) => (
         <Space size="middle">
           <a>Invite {record.name}</a>
-          <Button onClick={() => {
-
-            console.log('hello');
-            
-          }}>
-            
-          Delete</Button>
+          <Button
+            onClick={() => {
+              console.log('hello');
+            }}
+          >
+            Delete
+          </Button>
         </Space>
       )
     }
