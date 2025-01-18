@@ -33,7 +33,14 @@ export const QuizResults = () => {
       context.fillStyle = 'red';
 
       context.fillText(userDetails.name, 350, 360);
-      context.fillText(`${userDetails.schoolName}`,410, 420);
+      context.fillText(`${userDetails.schoolName}`, 410, 420);
+      const canvas2 = certificateCanvasRef.current;
+      const dataUrl = canvas2.toDataURL('image/png');
+
+      const link = document.createElement('a');
+      link.href = dataUrl;
+      link.download = `certificate-${attemptId}.png`;
+      link.click();
     };
   };
 
@@ -152,7 +159,7 @@ export const QuizResults = () => {
           icon={<DownloadOutlined />}
           onClick={() => {
             generateCertificate();
-            downloadCertificate();
+            // downloadCertificate();
           }}
           className="bg-purple-500"
         >
