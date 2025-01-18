@@ -1,4 +1,4 @@
-import { Button, Card, Form, Popconfirm, Space, Table, Tag } from 'antd';
+import { Button, Card, Form, message, Popconfirm, Space, Table, Tag } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { UserWrapper } from 'src/components';
 import AddQuestionModel from './components/AddQuestionModel';
@@ -9,6 +9,7 @@ import moment from 'moment';
 import { useDispatch } from 'react-redux';
 import { loadingStart, loadingStop } from 'src/redux/action';
 import { parseMongoId } from 'src/services/core';
+import { ClipboardTypeIcon } from 'lucide-react';
 
 export const CreateQuiz = () => {
   const handelError = useErrorLog('pages/dashboard/createQuiz');
@@ -179,16 +180,29 @@ export const CreateQuiz = () => {
         title="Quiz"
         className="mb-3"
         extra={
-          <Popconfirm
-            placement="topLeft"
-            onConfirm={deletedQuiz}
-            title="Delete the quiz"
-            description="Are you sure to delete this quiz?"
-            okText="Yes"
-            cancelText="No"
-          >
-            <Button danger>Delete</Button>
-          </Popconfirm>
+          <Space>
+            <Popconfirm
+              placement="topLeft"
+              onConfirm={deletedQuiz}
+              title="Delete the quiz"
+              description="Are you sure to delete this quiz?"
+              okText="Yes"
+              cancelText="No"
+            >
+              <Button danger>Delete</Button>
+            </Popconfirm>
+            {/* copy link button */}
+            <Button
+              type="primary"
+              onClick={() => {
+                const quizLink = window.location.origin + '/quiz/' + id;
+                navigator.clipboard.writeText(quizLink);
+                message.success('Quiz link copied successfully.');
+              }}
+            >
+              <ClipboardTypeIcon size={16} /> Copy Quiz Link
+            </Button>
+          </Space>
         }
       >
         <div>
