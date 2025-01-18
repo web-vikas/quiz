@@ -9,6 +9,7 @@ import actionImpact from './images/actionImpact.png';
 import authHeroImage from './images/heroImage.png';
 import lpiLogo from './images/lpi.png';
 import siteLogoDark from './images/siteLogoDark.png';
+import uvaDivas from './images/uvadivas.jpg';
 
 import chatBubble from './icons/chatBubble.png';
 import messageStar from './icons/messageStar.svg';
@@ -26,5 +27,5 @@ export {
   micListening,
   micListeningWave,
   microsoftIcon,
-  siteLogoDark, speaking, userGroups, users
+  siteLogoDark, speaking, userGroups, users, uvaDivas
 };

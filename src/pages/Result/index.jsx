@@ -1,10 +1,8 @@
 import React, { useRef } from 'react';
 import { Card, Typography, Button, List, Tag, Progress, Space, Divider } from 'antd';
 import { DownloadOutlined, CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
 import { useLocation } from 'react-router-dom';
-import { Certificate } from './components/Certificate';
+import { uvaDivas } from 'src/assets';
 
 const { Title, Text } = Typography;
 
@@ -19,29 +17,35 @@ export const QuizResults = () => {
     attemptId,
     quizName = 'NA'
   } = state;
-  const certificateRef = useRef(null);
+  const certificateCanvasRef = useRef(null);
 
-  const downloadAsPDF = async (elementId, fileName) => {
-    const element = document.getElementById(elementId);
-    const canvas = await html2canvas(element,{
-        useCORS: true,
-    });
-    const imgData = canvas.toDataURL('image/png');
+  const generateCertificate = () => {
+    const canvas = certificateCanvasRef.current;
+    const context = canvas.getContext('2d');
 
-    const pdf = new jsPDF();
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+    // Load the certificate template image
+    const image = new Image();
+    image.src = uvaDivas;
 
-    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-    pdf.save(fileName);
+    image.onload = () => {
+      context.drawImage(image, 0, 0, canvas.width, canvas.height);
+      context.font = '36px Arial';
+      context.fillStyle = 'red';
+
+      context.fillText(userDetails.name, 350, 360);
+      context.fillText(`${userDetails.schoolName}`,410, 420);
+    };
   };
 
+  // Function to download the certificate as an image
   const downloadCertificate = () => {
-    downloadAsPDF('certificate', `certificate-${attemptId}.pdf`);
-  };
+    const canvas = certificateCanvasRef.current;
+    const dataUrl = canvas.toDataURL('image/png');
 
-  const downloadResults = () => {
-    downloadAsPDF('quiz-results', `quiz-results-${attemptId}.pdf`);
+    const link = document.createElement('a');
+    link.href = dataUrl;
+    link.download = `certificate-${attemptId}.png`;
+    link.click();
   };
 
   return (
@@ -59,7 +63,7 @@ export const QuizResults = () => {
               percent={score}
               format={(percent) => (
                 <div className="text-center">
-                  <div className="text-lg font-bold">{percent}%</div>
+                  <div className="text-lg font-bold">{percent?.toFixed(2)}%</div>
                   <div className="text-sm">Score</div>
                 </div>
               )}
@@ -133,29 +137,23 @@ export const QuizResults = () => {
           />
         </Card>
       </div>
-      <div className="mb-4" id="certificate" ref={certificateRef}>
-        <Certificate
-          name={userDetails.name}
-          quizName={quizName}
-          score={score}
-          date={new Date().toLocaleDateString()}
-        />
-      </div>
+
+      {/* Hidden canvas for certificate */}
+      <canvas
+        ref={certificateCanvasRef}
+        width={1280} // Width of the certificate canvas
+        height={853} // Height of the certificate canvas
+        style={{ display: 'none' }} // Hide the canvas
+      />
 
       <div className="flex justify-center gap-4">
         <Button
           type="primary"
           icon={<DownloadOutlined />}
-          onClick={downloadResults}
-          className="bg-blue-500"
-        >
-          Download PDF
-        </Button>
-
-        <Button
-          type="primary"
-          icon={<DownloadOutlined />}
-          onClick={downloadCertificate}
+          onClick={() => {
+            generateCertificate();
+            downloadCertificate();
+          }}
           className="bg-purple-500"
         >
           Download Certificate
