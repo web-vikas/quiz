@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 import { loadingStart, loadingStop } from 'src/redux/action';
 import { parseMongoId } from 'src/services/core';
 import { ClipboardTypeIcon } from 'lucide-react';
+import QuizMultiView from './components/QuizMultiView';
 
 export const CreateQuiz = () => {
   const handelError = useErrorLog('pages/dashboard/createQuiz');
@@ -109,71 +110,6 @@ export const CreateQuiz = () => {
     }
   };
 
-  const columns = [
-    {
-      title: '#',
-      dataIndex: '_id',
-      key: '_id',
-      width: 50,
-      render: (_id) => <p>{parseMongoId(_id)}</p>
-    },
-    {
-      title: 'Question',
-      dataIndex: 'question_name',
-      key: 'question_name',
-      width: 300
-    },
-    {
-      title: 'Option A',
-      dataIndex: 'option_a',
-      key: 'option_a',
-      width: 150
-    },
-    {
-      title: 'Option B',
-      dataIndex: 'option_b',
-      key: 'option_b',
-      width: 150
-    },
-    {
-      title: 'Option C',
-      dataIndex: 'option_c',
-      key: 'option_c',
-      width: 150
-    },
-    {
-      title: 'Option D',
-      dataIndex: 'option_d',
-      key: 'option_d',
-      width: 150
-    },
-    {
-      title: 'Correct Answer',
-      dataIndex: 'correct_answer',
-      key: 'correct_answer',
-      width: 150
-    },
-    {
-      title: 'Action',
-      key: 'action',
-      width: 100,
-      render: (question) => (
-        <Space size="small">
-          <Popconfirm
-            placement="topRight"
-            onConfirm={() => deletedQuestion(question)}
-            title="Delete the question"
-            description="Are you sure to delete this question?"
-            okText="Yes"
-            cancelText="No"
-          >
-            <Button danger>Delete</Button>
-          </Popconfirm>
-        </Space>
-      )
-    }
-  ];
-
   return (
     <UserWrapper>
       <Card
@@ -222,7 +158,19 @@ export const CreateQuiz = () => {
           </Button>
         }
       >
-        <Table columns={columns} dataSource={questions} />
+        {/* <Table
+          columns={columns}
+          dataSource={questions}
+          rowKey={'_id'}
+          scroll={{ x: 200 }}
+        /> */}
+        <QuizMultiView
+          quizData={quizData}
+          questions={questions}
+          onDeleteQuestion={deletedQuestion}
+          onDeleteQuiz={deletedQuiz}
+          id={id}
+        />
       </Card>
       <AddQuestionModel
         isQuestionModelVisible={isQuestionModelVisible}
