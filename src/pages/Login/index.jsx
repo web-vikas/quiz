@@ -52,9 +52,9 @@ export const Login = () => {
           <AuthCarousal />
           <div className="lg:w-1/2 xl:w-6/12 p-6 sm:p-12 flex items-center justify-center">
             <div className="flex flex-col items-start max-w-full md:w-[500px]">
-              <Image src={siteLogoDark} className="w-28" preview={false} />
+              <Image src={siteLogoDark} width={200} preview={false} />
               <h1 className="text-lg xl:text-3xl text-black font-bold">Login to your Account</h1>
-              <p className="text-lg py-3 text-text-color">Welcome Back! Select method to login:</p>
+              <p className="text-lg py-3 text-text-color">Welcome Back!</p>
               <div className="w-full flex-1 mt-8">
                 <div className="">
                   <Form onFinish={onLogin}>
