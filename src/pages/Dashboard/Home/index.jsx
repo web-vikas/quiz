@@ -69,11 +69,11 @@ export const Dashboard = () => {
         }
       >
         {quizzes?.length > 0 ? (
-          <div className="flex gap-2">
+          <div className="flex gap-2 flex-wrap">
             {quizzes.map((quiz) => (
-              <Link to="/dashboard/quiz" state={{ id: quiz._id }} key={quiz._id}>
+              <Link to="/dashboard/quiz" state={{ id: quiz._id }} key={quiz._id} className="shadow-md p-4 rounded-md">
                 <h3>{quiz.quiz_name}</h3>
-                <p>{moment(quiz.createdAt).format('l')}</p>
+                <p>{moment(quiz.createdAt).format('DD-MM-YYYY hh:mm A')}</p>
               </Link>
             ))}
           </div>

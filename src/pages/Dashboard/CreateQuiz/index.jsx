@@ -1,4 +1,4 @@
-import { Button, Card, Form, Space, Table, Tag } from 'antd';
+import { Button, Card, Form, Popconfirm, Space, Table, Tag } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { UserWrapper } from 'src/components';
 import AddQuestionModel from './components/AddQuestionModel';
@@ -80,6 +80,34 @@ export const CreateQuiz = () => {
     }
   };
 
+  const deletedQuiz = async () => {
+    try {
+      dispatch(loadingStart());
+      const res = await API.deleteQuizById(id);
+      if (res) {
+        navigate('/dashboard');
+      }
+    } catch (error) {
+      handelError(error);
+    } finally {
+      dispatch(loadingStop());
+    }
+  };
+
+  const deletedQuestion = async (question) => {
+    try {
+      dispatch(loadingStart());
+      const res = await API.deleteQuestionByQuestionId(question._id);
+      if (res) {
+        fetchQuestions();
+      }
+    } catch (error) {
+      handelError(error);
+    } finally {
+      dispatch(loadingStop());
+    }
+  };
+
   const columns = [
     {
       title: '#',
@@ -123,12 +151,46 @@ export const CreateQuiz = () => {
       dataIndex: 'correct_answer',
       key: 'correct_answer',
       width: 150
+    },
+    {
+      title: 'Action',
+      key: 'action',
+      width: 100,
+      render: (question) => (
+        <Space size="small">
+          <Popconfirm
+            placement="topRight"
+            onConfirm={() => deletedQuestion(question)}
+            title="Delete the question"
+            description="Are you sure to delete this question?"
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button danger>Delete</Button>
+          </Popconfirm>
+        </Space>
+      )
     }
   ];
 
   return (
     <UserWrapper>
-      <Card title="Quiz" className="mb-3">
+      <Card
+        title="Quiz"
+        className="mb-3"
+        extra={
+          <Popconfirm
+            placement="topLeft"
+            onConfirm={deletedQuiz}
+            title="Delete the quiz"
+            description="Are you sure to delete this quiz?"
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button danger>Delete</Button>
+          </Popconfirm>
+        }
+      >
         <div>
           <h2>{quizData?.quiz_name}</h2>
           <p>{moment(quizData?.createdAt).format('l')}</p>
