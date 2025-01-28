@@ -58,4 +58,18 @@ export const QuizApi = {
         });
         return responseHandler(api_call, toast_success, toast_loading);
     },
+    GenerateQuestions: async (data, toast_success = false, toast_loading = false) => {
+        const token = await getToken()
+        const api_call = axiosApi.post(`/quiz/generate`, data,{
+            headers: { Authorization: 'Bearer ' + token }
+        });
+        return responseHandler(api_call, toast_success, toast_loading);
+    },
+    InsertQuestions: async (data, toast_success = false, toast_loading = false) => {
+        const token = await getToken()
+        const api_call = axiosApi.post(`/quiz/insert-multiple`, data,{
+            headers: { Authorization: 'Bearer ' + token }
+        });
+        return responseHandler(api_call, toast_success, toast_loading);
+    },
 }
