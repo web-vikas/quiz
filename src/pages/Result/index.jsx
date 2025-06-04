@@ -42,17 +42,46 @@ export const QuizResults = () => {
     //   link.download = `certificate-${attemptId}.png`;
     //   link.click();
     // };
+//     image.onload = () => {
+//   context.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+//   // Bold font for user name
+//   context.font = 'bold 36px Arial';
+//   context.fillStyle = 'red';
+//   context.fillText(userDetails.name + " ( "+ userDetails.class + " )" , 370, 380);
+
+//   // Normal font for school name
+//   context.font = '36px Arial';
+//   context.fillText(`${userDetails.schoolName}`, 200, 440);
+
+//   const canvas2 = certificateCanvasRef.current;
+//   const dataUrl = canvas2.toDataURL('image/png');
+
+//   const link = document.createElement('a');
+//   link.href = dataUrl;
+//   link.download = `certificate-${attemptId}.png`;
+//   link.click();
+// };
     image.onload = () => {
   context.drawImage(image, 0, 0, canvas.width, canvas.height);
 
-  // Bold font for user name
+  // Bold font for user name + class
   context.font = 'bold 36px Arial';
   context.fillStyle = 'red';
-  context.fillText(userDetails.name + " ( "+ userDetails.class + " )" , 370, 380);
+
+  const nameText = `${userDetails.name} (${userDetails.class})`;
+  const nameTextWidth = context.measureText(nameText).width;
+  const nameX = (canvas.width - nameTextWidth) / 2;
+
+  context.fillText(nameText, nameX, 380);
 
   // Normal font for school name
   context.font = '36px Arial';
-  context.fillText(`${userDetails.schoolName}`, 200, 440);
+  const schoolText = userDetails.schoolName;
+  const schoolTextWidth = context.measureText(schoolText).width;
+  const schoolX = (canvas.width - schoolTextWidth) / 2;
+
+  context.fillText(schoolText, schoolX, 440);
 
   const canvas2 = certificateCanvasRef.current;
   const dataUrl = canvas2.toDataURL('image/png');
@@ -62,6 +91,7 @@ export const QuizResults = () => {
   link.download = `certificate-${attemptId}.png`;
   link.click();
 };
+
 
   };
 
