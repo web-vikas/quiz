@@ -33,7 +33,7 @@ export const QuizResults = () => {
       context.fillStyle = 'red';
 
       context.fillText(userDetails.name, 370, 380);
-      context.fillText(`${userDetails.schoolName}`, 420, 440);
+      context.fillText(`${userDetails.schoolName}`, 200, 440);
       const canvas2 = certificateCanvasRef.current;
       const dataUrl = canvas2.toDataURL('image/png');
 
