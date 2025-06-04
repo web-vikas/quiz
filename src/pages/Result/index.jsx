@@ -27,21 +27,42 @@ export const QuizResults = () => {
     const image = new Image();
     image.src = p1;
 
+    // image.onload = () => {
+    //   context.drawImage(image, 0, 0, canvas.width, canvas.height);
+    //   context.font = '36px Arial';
+    //   context.fillStyle = 'red';
+
+    //   context.fillText(userDetails.name, 370, 380);
+    //   context.fillText(`${userDetails.schoolName}`, 200, 440);
+    //   const canvas2 = certificateCanvasRef.current;
+    //   const dataUrl = canvas2.toDataURL('image/png');
+
+    //   const link = document.createElement('a');
+    //   link.href = dataUrl;
+    //   link.download = `certificate-${attemptId}.png`;
+    //   link.click();
+    // };
     image.onload = () => {
-      context.drawImage(image, 0, 0, canvas.width, canvas.height);
-      context.font = '36px Arial';
-      context.fillStyle = 'red';
+  context.drawImage(image, 0, 0, canvas.width, canvas.height);
 
-      context.fillText(userDetails.name, 370, 380);
-      context.fillText(`${userDetails.schoolName}`, 200, 440);
-      const canvas2 = certificateCanvasRef.current;
-      const dataUrl = canvas2.toDataURL('image/png');
+  // Bold font for user name
+  context.font = 'bold 36px Arial';
+  context.fillStyle = 'red';
+  context.fillText(userDetails.name, 370, 380);
 
-      const link = document.createElement('a');
-      link.href = dataUrl;
-      link.download = `certificate-${attemptId}.png`;
-      link.click();
-    };
+  // Normal font for school name
+  context.font = '36px Arial';
+  context.fillText(`${userDetails.schoolName}`, 200, 440);
+
+  const canvas2 = certificateCanvasRef.current;
+  const dataUrl = canvas2.toDataURL('image/png');
+
+  const link = document.createElement('a');
+  link.href = dataUrl;
+  link.download = `certificate-${attemptId}.png`;
+  link.click();
+};
+
   };
 
   // Function to download the certificate as an image
