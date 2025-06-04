@@ -11,7 +11,7 @@ import lpiLogo from './images/lpi.png';
 import siteLogoDark from './images/siteLogoDark.png';
 import uvaDivas from './images/uvadivas.jpg';
 import vigyanDivas from './images/vigyanDivas.jpg';
-
+import p1 from './images/p1.jpg';
 import chatBubble from './icons/chatBubble.png';
 import messageStar from './icons/messageStar.svg';
 import micIcon from './icons/micIcon.svg';
@@ -28,5 +28,5 @@ export {
   micListening,
   micListeningWave,
   microsoftIcon,
-  siteLogoDark, speaking, userGroups, users, uvaDivas,vigyanDivas
+  siteLogoDark, speaking, userGroups, users, uvaDivas,vigyanDivas,p1
 };
