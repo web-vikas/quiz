@@ -154,7 +154,7 @@ export const QuizPage = () => {
         <div>
           <Input
             prefix={<BookOutlined />}
-            placeholder="Your class"
+            placeholder="Designation"
             value={userDetails.class}
             size="large"
             onChange={(e) => handleUserDetailChange('class', e.target.value)}
