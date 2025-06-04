@@ -48,7 +48,7 @@ export const QuizResults = () => {
   // Bold font for user name
   context.font = 'bold 36px Arial';
   context.fillStyle = 'red';
-  context.fillText(userDetails.name + userDetails.class, 370, 380);
+  context.fillText(userDetails.name +  userDetails.class, 370, 380);
 
   // Normal font for school name
   context.font = '36px Arial';
