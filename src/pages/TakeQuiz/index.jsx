@@ -44,6 +44,9 @@ export const QuizPage = () => {
       setLoading(true);
       const res = await API.getQuestionsAndQuizInfoByQuizId(quizId);
       if (res) {
+        if(res?.data?.status == "inactive"){
+        navigate('/');
+        }
         setQuizData(res?.data);
         const initialAnswers = {};
         res.data.questions.forEach((question) => {
