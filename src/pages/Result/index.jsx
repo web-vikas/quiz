@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { Card, Typography, Button, List, Tag, Progress, Space, Divider } from 'antd';
 import { DownloadOutlined, CheckCircleOutlined, CloseCircleOutlined } from '@ant-design/icons';
 import { useLocation } from 'react-router-dom';
-import { vigyanDivas,p1 } from 'src/assets';
+import { vigyanDivas,p1,yoga_day } from 'src/assets';
 
 const { Title, Text } = Typography;
 
@@ -25,7 +25,7 @@ export const QuizResults = () => {
 
     // Load the certificate template image
     const image = new Image();
-    image.src = p1;
+    image.src = yoga_day;
 
     // image.onload = () => {
     //   context.drawImage(image, 0, 0, canvas.width, canvas.height);
