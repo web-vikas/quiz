@@ -73,7 +73,7 @@ export const QuizResults = () => {
   const nameTextWidth = context.measureText(nameText).width;
   const nameX = (canvas.width - nameTextWidth) / 2;
 
-  context.fillText(nameText, nameX, 380);
+  context.fillText(nameText, nameX, 360);
 
   // Normal font for school name
   context.font = '36px Arial';
@@ -81,7 +81,7 @@ export const QuizResults = () => {
   const schoolTextWidth = context.measureText(schoolText).width;
   const schoolX = (canvas.width - schoolTextWidth) / 2;
 
-  context.fillText(schoolText, schoolX, 440);
+  context.fillText(schoolText, schoolX, 420);
 
   const canvas2 = certificateCanvasRef.current;
   const dataUrl = canvas2.toDataURL('image/png');
